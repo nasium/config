@@ -30,6 +30,7 @@
      python
      ibuffer
      perforce
+     perl
      ;; syntax-checking
      )
    ;; List of additional packages that will be installed wihout being
@@ -193,6 +194,8 @@ layers configuration."
   (define-key global-map (kbd "C-x t") 'toggle-truncate-lines)
   (define-key global-map (kbd "C-M-l") 'switch-to-other-buffer)
   (define-key global-map (kbd "M-i") 'join-lines)
+  (define-key global-map (kbd "C-l") 'recenter)
+  (defalias 'perl-mode 'cperl-mode)
 
   ;; Let Meta-g goto a specific line
   (define-key global-map (kbd "M-g") 'goto-line)
