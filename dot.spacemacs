@@ -17,14 +17,19 @@
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
-     better-defaults
+     ;; auto-completion
+     ;; better-defaults
      emacs-lisp
      ;; (git :variables
      ;;      git-gutter-use-fringe t)
-     markdown
-     org
+     ;; markdown
+     ;; org
      shell
+     c-c++
+     helm
+     python
+     ibuffer
+     perforce
      ;; syntax-checking
      )
    ;; List of additional packages that will be installed wihout being
@@ -147,14 +152,82 @@ before layers configuration."
   ;; User initialization goes here
   )
 
+;; Compliments of wtc
+(defun toggle-truncate-lines (arg)
+  "Toggle truncate-lines.
+With arg, turn truncate lines on iff arg is positive."
+  (interactive "P")
+  (setq truncate-lines
+        (if (null arg) (not truncate-lines)
+          (> (prefix-numeric-value arg) 0)))
+  (redraw-display))
+
+;; Taken from xemacs files.el
+(defun switch-to-other-buffer (arg)
+  "Switch to the previous buffer.  With a numeric arg, n, switch to the nth
+most recent buffer.  With an arg of 0, buries the current buffer at the
+bottom of the buffer stack."
+  (interactive "p")
+  (if (eq arg 0)
+      (bury-buffer (current-buffer)))
+  (switch-to-buffer
+   (if (<= arg 1) (other-buffer (current-buffer))
+     (nth (1+ arg) (buffer-list)))))
+
+;; Define join-line command for the Meta-i key
+(defun join-lines ()  ; from tce
+  "Used to join two lines together"
+  (interactive)
+  (save-excursion
+    (end-of-line)			;go the end
+    (delete-char 1)			;get rid of the newline
+    (just-one-space)			;remove all but one space
+    ))
+
 (defun dotspacemacs/config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  ;; Command and Alt
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier 'super)
+  (evil-ex-define-cmd "q[uit]" 'kill-this-buffer)
+  (define-key global-map (kbd "C-x C-f") 'spacemacs/helm-find-files)
+  (define-key global-map (kbd "C-x t") 'toggle-truncate-lines)
+  (define-key global-map (kbd "C-M-l") 'switch-to-other-buffer)
+  (define-key global-map (kbd "M-i") 'join-lines)
+
+  ;; Let Meta-g goto a specific line
+  (define-key global-map (kbd "M-g") 'goto-line)
+
+  ;; Use the Meta-o key to go overstrike mode
+  (define-key global-map "\M-o" 'overwrite-mode)
+
 )
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ahs-case-fold-search nil)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
+ '(ahs-idle-interval 0.25)
+ '(ahs-idle-timer 0 t)
+ '(ahs-inhibit-face-list nil)
+ '(backup-inhibited t t)
+ '(c-basic-offset 4)
+ '(default-tab-width 8 t)
+ '(global-evil-search-highlight-persist nil)
+ '(mouse-yank-at-point t)
+ '(ring-bell-function (quote ignore) t)
+ '(show-trailing-whitespace nil)
+ '(spacemacs-show-trailing-whitespace nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
