@@ -23,14 +23,15 @@
      ;; (git :variables
      ;;      git-gutter-use-fringe t)
      ;; markdown
-     ;; org
+     org
      shell
      c-c++
      helm
      python
-     ibuffer
+     ;; ibuffer
      perforce
      perl
+     gtags
      ;; syntax-checking
      )
    ;; List of additional packages that will be installed wihout being
@@ -191,6 +192,7 @@ bottom of the buffer stack."
 layers configuration."
   (evil-ex-define-cmd "q[uit]" 'kill-this-buffer)
   (define-key global-map (kbd "C-x C-f") 'spacemacs/helm-find-files)
+  (define-key global-map (kbd "C-x b") 'helm-buffers-list)
   (define-key global-map (kbd "C-x t") 'toggle-truncate-lines)
   (define-key global-map (kbd "C-M-l") 'switch-to-other-buffer)
   (define-key global-map (kbd "M-i") 'join-lines)
@@ -201,7 +203,10 @@ layers configuration."
   (define-key global-map (kbd "M-g") 'goto-line)
 
   ;; Use the Meta-o key to go overstrike mode
-  (define-key global-map "\M-o" 'overwrite-mode)
+  (define-key global-map (kbd "M-o") 'overwrite-mode)
+
+  ;; Start a global tag search
+  (define-key global-map (kbd "M-;") 'tags-search)
 
   ;; Taken originally from osx the modified
   (when (equal system-type 'darwin)
