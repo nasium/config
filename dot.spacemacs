@@ -203,6 +203,14 @@ layers configuration."
   ;; Use the Meta-o key to go overstrike mode
   (define-key global-map "\M-o" 'overwrite-mode)
 
+  ;; Taken originally from osx the modified
+  (when (equal system-type 'darwin)
+    ;; Treat option as meta and command as super
+    (setq mac-option-key-is-meta t)
+    (setq mac-command-key-is-meta t)
+    (setq mac-command-modifier 'meta)
+    (setq mac-option-modifier 'super))
+
 )
 
 
