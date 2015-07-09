@@ -216,6 +216,11 @@ layers configuration."
     (setq mac-command-modifier 'meta)
     (setq mac-option-modifier 'super))
 
+  (global-auto-revert-mode 0)
+  (setq create-lockfiles t)
+  (global-evil-search-highlight-persist nil)
+  (setq spacemacs-show-trailing-whitespace nil)
+  (setq show-trailing-whitespace nil)
 )
 
 
@@ -232,14 +237,11 @@ layers configuration."
  '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
- '(backup-inhibited t t)
+ '(backup-inhibited t)
  '(c-basic-offset 4)
  '(default-tab-width 8 t)
- '(global-evil-search-highlight-persist nil)
  '(mouse-yank-at-point t)
- '(ring-bell-function (quote ignore) t)
- '(show-trailing-whitespace nil)
- '(spacemacs-show-trailing-whitespace nil))
+ '(ring-bell-function (quote ignore) t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
