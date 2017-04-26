@@ -208,6 +208,9 @@ layers configuration."
   ;; Start a global tag search
   (define-key global-map (kbd "M-;") 'tags-search)
 
+  (define-key global-map (kbd "M-/") 'dabbrev-expand)
+  (define-key global-map (kbd "C-C C-f") 'find-file)
+
   ;; Taken originally from osx the modified
   (when (equal system-type 'darwin)
     ;; Treat option as meta and command as super
@@ -221,6 +224,20 @@ layers configuration."
   (global-evil-search-highlight-persist nil)
   (setq spacemacs-show-trailing-whitespace nil)
   (setq show-trailing-whitespace nil)
+  (setq helm-buffer-max-length nil)
+  (setq global-vi-tilde-fringe-mode nil)
+
+  (setq cperl-indent-level 4)
+
+  (use-package fic-mode
+    :ensure t
+    :config (add-hook 'prog-mode-hook 'turn-on-fic-mode))
+
+  ;; Normal undo
+  ;; (define-key global-map (kbd "M-/") 'undo)
+
+
+  ;; (recentf-mode -1)
 )
 
 
@@ -237,10 +254,11 @@ layers configuration."
  '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
- '(backup-inhibited t)
+ '(backup-inhibited t t)
  '(c-basic-offset 4)
  '(default-tab-width 8 t)
  '(mouse-yank-at-point t)
+ '(org-agenda-files (quote ("~/bag/foo.org")))
  '(ring-bell-function (quote ignore) t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
